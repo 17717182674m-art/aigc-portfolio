@@ -4,9 +4,13 @@ import { motion, useMotionValue, useSpring } from 'framer-motion'
 import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { artist, projects, services, categoryLabel, HERO_VIDEO } from '../portfolio.config'
 import GradientPlaceholder from '../components/GradientPlaceholder'
+import ImageTrailLayer from '../components/ImageTrailLayer'
 import TextReveal from '../components/TextReveal'
 
 const featured = projects.slice(0, 6)
+
+/** Image Trail 素材：从项目色板生成缩略图残影 */
+const trailMaterials = projects.map((p) => ({ seed: p.seed, palette: p.palette }))
 
 /* ------------------------------------------------------------------ */
 /*  Hero                                                               */
@@ -222,7 +226,7 @@ function WhatIDo() {
   const hoverPalette = (i: number) => featured[i % featured.length].palette
 
   return (
-    <section className="relative px-6 pb-24 md:pb-40 lg:px-16">
+    <section data-trail className="relative px-6 pb-24 md:pb-40 lg:px-16">
       <div className="mx-auto max-w-7xl">
         <div className="mb-10 flex items-center gap-4 text-white/40">
           <span className="font-ui text-xs tracking-[0.3em]">02</span>
@@ -345,6 +349,7 @@ function FooterCTA() {
 export default function Home() {
   return (
     <>
+      <ImageTrailLayer items={trailMaterials} />
       <Hero />
       <SelectedWorks />
       <WhatIDo />

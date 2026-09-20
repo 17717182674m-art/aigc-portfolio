@@ -4,16 +4,21 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { categories, projects, categoryLabel, type CategoryId } from '../portfolio.config'
 import GradientPlaceholder from '../components/GradientPlaceholder'
+import ImageTrailLayer from '../components/ImageTrailLayer'
 import { cn } from '../lib/utils'
 
 type Filter = 'all' | CategoryId
+
+/** Image Trail 素材 */
+const trailMaterials = projects.map((p) => ({ seed: p.seed, palette: p.palette }))
 
 export default function Work() {
   const [filter, setFilter] = useState<Filter>('all')
   const filtered = filter === 'all' ? projects : projects.filter((p) => p.category === filter)
 
   return (
-    <section className="px-6 pb-28 pt-32 md:pb-40 md:pt-40 lg:px-16">
+    <section data-trail className="px-6 pb-28 pt-32 md:pb-40 md:pt-40 lg:px-16">
+      <ImageTrailLayer items={trailMaterials} />
       <div className="mx-auto max-w-7xl">
         {/* 标题 */}
         <header className="mb-10 md:mb-16">
